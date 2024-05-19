@@ -1,0 +1,14 @@
+FROM golang:1.20-alpine as build
+
+RUN apk --no-cache add ca-certificates
+WORKDIR /go/src/unkex
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o /newsletter ./cmd/newsletter.go
+
+
+FROM scratch
+
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=build /newsletter /newsletter
+
+ENTRYPOINT ["newsletter"]
