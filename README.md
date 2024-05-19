@@ -47,3 +47,11 @@
 > As well as a CLI Crontab app to perform routine tasks
 
 - #### Proceed with [backend documentation](backend/)
+
+
+
+# Notes
+1. It is usually a bad practice to commit `.env` files into repository. Though...:
+> Though in this case we only pushed a basic template to ease subsequent project configuration (for other comrad devs)
+>
+> Only a template is commited, next commits are ignored because file is removed from tracking
