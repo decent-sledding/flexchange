@@ -55,3 +55,8 @@
 > Though in this case we only pushed a basic template to ease subsequent project configuration (for other comrad devs)
 >
 > Only a template is commited, next commits are ignored because file is removed from tracking
+
+2. You need to set proper permissions within database
+> Set proper permissions for a database that is being used for local development/testing
+
+> This should be automatically configured in case `Docker Compose` is used
