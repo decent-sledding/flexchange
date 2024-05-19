@@ -3,6 +3,7 @@
 > Provides actual information for `UAH`/`USD` exchange rate 
 > Allows subsribtion to the exchange rate updates
 
+** Unfortunately this project is not finished yet
 
 # Requirements
 ## For containerized application
