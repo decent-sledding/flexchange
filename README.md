@@ -33,7 +33,7 @@
 
 
 ---
-# [Simple Frontend](frontend/)
+# Simple Frontend
 > This is simple frontend app composed using `Next.js` and `Typescript`
 >
 > It provides bare simple interface to interact with the backend through UI in the browser
