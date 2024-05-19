@@ -12,6 +12,8 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/golang-migrate/migrate/v4"
+
+	"internal/db"
 )
 
 
@@ -32,7 +34,7 @@ func NewStorage(db *sql.DB) Storage {
 }
 
 
-func (s *storage) RunMigrations(connString string) error {
+func (s *storage) RunMigrations() error {
 	if connString == "" {
 		return errors.New("Respository: Connection string is empty")
 	}

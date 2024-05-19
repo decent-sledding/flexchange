@@ -25,6 +25,7 @@ func ApiRouter() chi.Router {
 func getRate(w http.ResponseWriter, r *http.Request) {
 	// rateStats := nil
 	// render.JSON(w, r, order)	
+	RateResponse
 }
 
 
