@@ -2,6 +2,7 @@ package repository
 
 import (
 	
+	"fmt"
 	"path/filepath"
 	"runtime"
 	"database/sql"
@@ -16,7 +17,7 @@ import (
 
 type Storage interface {
 	RunMigrations(connString string) error
-	Subscribe(request api.NewUserRequest) error
+	// Subscribe(request api.NewUserRequest) error
 }
 
 type storage struct {
@@ -40,29 +41,36 @@ func (s *storage) RunMigrations(connString string) error {
 	basePath := filepath.Join(filepath.Dir(b), "../..")
 	migrationsPath := filepath.Join("file://", basePath, "/internal/repository/migrations/")
 
+	fmt.Printf("Path: %v\n", migrationsPath)
+
 	m, err := migrate.New(migrationsPath, connString)
 
 	if err != nil {
+		fmt.Printf("Migrations failed: %v\n", err)
 		return err
 	}
 
 	err = m.Up()
 
-	return nil
-}
-
-func (s *storage) Subscribe(request api.NewUserRequest) error {
-	newUserStatement := `
-		INSERT INTO "user" (name, age, height, sex, activity_level, email, weight_goal) 
-		VALUES ($1, $2, $3, $4, $5, $6, $7);
-		`
-
-	err := s.db.QueryRow(newUserStatement, request.Name, request.Age, request.Height, request.Sex, request.ActivityLevel, request.Email, request.WeightGoal).Err()
-
 	if err != nil {
-		log.Printf("this was the error: %v", err.Error())
-		return err
+		fmt.Printf("Migrations failed: %v\n", err)
 	}
 
 	return nil
 }
+
+// func (s *storage) Subscribe(request api.NewUserRequest) error {
+// 	newUserStatement := `
+// 		INSERT INTO "user" (name, age, height, sex, activity_level, email, weight_goal) 
+// 		VALUES ($1, $2, $3, $4, $5, $6, $7);
+// 		`
+
+// 	err := s.db.QueryRow(newUserStatement, request.Name, request.Age, request.Height, request.Sex, request.ActivityLevel, request.Email, request.WeightGoal).Err()
+
+// 	if err != nil {
+// 		log.Printf("this was the error: %v", err.Error())
+// 		return err
+// 	}
+
+// 	return nil
+// }
