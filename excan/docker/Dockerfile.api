@@ -1,0 +1,15 @@
+FROM golang:1.20-alpine
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /go/src/unkex
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o /api_service
+
+ENV SERVER_PORT=5000
+ENV SERVER_HOST=0.0.0.0
+
+EXPOSE $SERVER_PORT
+
+ENTRYPOINT ['api_service']
